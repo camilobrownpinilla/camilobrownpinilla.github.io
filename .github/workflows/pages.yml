@@ -34,6 +34,7 @@ jobs:
         run: npm run build
         env:
           BASE_URL: /
+          VITE_SITE_TITLE: "Camilo Brown-Pinilla"
 
       - name: Ensure SPA fallback and .nojekyll
         run: |
