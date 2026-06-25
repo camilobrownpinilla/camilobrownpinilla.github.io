@@ -1,8 +1,8 @@
 :root {
   --bg-color: #f8f9fa;
   --text-color: #212529;
-  --accent-color: #3a86ff;
-  --accent-light: rgba(58, 134, 255, 0.1);
+  --accent-color: #FF0082;
+  --accent-light: rgba(255, 0, 130, 0.1);
   --secondary-text: #6c757d;
   --border-color: #dee2e6;
   --card-bg: #ffffff;
@@ -13,8 +13,8 @@
 [data-theme='dark'] {
   --bg-color: #0d1117;
   --text-color: #c9d1d9;
-  --accent-color: #58a6ff;
-  --accent-light: rgba(88,166,255,0.15);
+  --accent-color: #FF0082;
+  --accent-light: rgba(255, 0, 130, 0.15);
   --secondary-text: #8b949e;
   --border-color: #30363d;
   --card-bg: #161b22;

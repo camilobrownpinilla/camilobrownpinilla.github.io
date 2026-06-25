@@ -46,8 +46,4 @@ version:
         - Project showcase with demos
 ---
 
-Cookie is a Pomeranian researcher specializing in companion intelligence, warmth-seeking optimization, and cross-species social dynamics. She received her B.A. in Good Girl Arts from Home Sweet Home (2020–2022), where she developed foundational skills in obedience, treat negotiation, and human-attention maximization. She went on to complete her M.S. in Cuddle Sciences at The Cozy Corner Institute (2022–2023), with thesis work on reinforcement learning approaches to optimal lap positioning.
-
-Cookie is currently a Ph.D. candidate at The Cozy Corner Institute under the supervision of Dr. Warm Lap, where her research focuses on building intelligent companion systems that understand and optimize the human-pet co-living experience. Her work spans three key areas: (1) real-time human-proximity optimization, (2) cross-species cooperative play modeling with her Ragdoll cat brother Lucas, and (3) the fundamental science of warmth-seeking behavior.
-
-She has published at venues including CozyCon and CompanionML, with first-author papers on lap positioning optimization and real-time proximity tracking. When not conducting research, Cookie can be found claiming the sunniest spot on the couch, perfecting her signature dramatic sigh when dinner is five minutes late, or engaged in rigorous play sessions with Lucas in the living room.
+Camilo Brown-Pinilla uses geometric and topological tools to study the design and interpretability of foundation models, with a focus on structured representation learning. He enjoys biking, heavy metal, film photography, and Spanish literature.

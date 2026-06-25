@@ -101,7 +101,7 @@ const HeroSection = ({ title, avatar, research = [], researchLogos = {}, educati
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.2, delay: 0.6 }}
-                color="cyan.400"
+                color="var(--accent-color)"
                 fontFamily="mono"
                 display="flex"
                 alignItems="center"
@@ -143,7 +143,7 @@ const HeroSection = ({ title, avatar, research = [], researchLogos = {}, educati
                     <Text
                       key={index}
                       h={["18px", "20px", "24px"]}
-                      color="cyan.400"
+                      color="var(--accent-color)"
                       fontWeight="bold"
                       fontSize={["xs", "sm"]}
                       fontFamily="mono"

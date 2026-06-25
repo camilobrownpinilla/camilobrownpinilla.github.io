@@ -378,6 +378,8 @@ const PublicationsTerminal: React.FC = () => {
                 <option value="workshop">Workshops</option>
                 <option value="demo">Demo</option>
                 <option value="preprint">Preprints</option>
+                <option value="journal">Journals</option>
+                <option value="thesis">Thesis</option>
               </Select>
               
               <IconButton
@@ -515,6 +517,8 @@ const PublicationsTerminal: React.FC = () => {
                           pub.venueType === 'conference' ? 'blue' :
                           pub.venueType === 'workshop' ? 'purple' :
                           pub.venueType === 'demo' ? 'orange' :
+                          pub.venueType === 'journal' ? 'orange' :
+                          pub.venueType === 'thesis' ? 'gray' :
                           'green'
                         }
                         fontSize="2xs"

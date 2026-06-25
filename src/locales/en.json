@@ -33,7 +33,7 @@
     "categories": "categories"
   },
   "hero": {
-    "greeting": "Hi there, I'm",
+    "greeting": "",
     "sometimesI": "Sometimes I"
   },
   "footer": {
@@ -142,7 +142,9 @@
     "web-app": "WEB / APP",
     "data": "DATA / ML",
     "tooling": "TOOLING",
-    "healthcare": "HEALTHCARE"
+    "healthcare": "HEALTHCARE",
+    "research": "RESEARCH",
+    "fun": "FUN"
   },
   "categoryLabel": {
     "robotics": "Robotics",
@@ -150,7 +152,9 @@
     "web-app": "Web / App",
     "data": "Data / ML",
     "tooling": "Tooling",
-    "healthcare": "Healthcare"
+    "healthcare": "Healthcare",
+    "research": "Research",
+    "fun": "Fun"
   },
   "awards": {
     "grant": "Grant",
@@ -167,6 +171,8 @@
     "conference": "CONFERENCE",
     "workshop": "WORKSHOP",
     "demo": "DEMO TRACK",
-    "preprint": "PREPRINT"
+    "preprint": "PREPRINT",
+    "journal": "JOURNAL",
+    "thesis": "THESIS"
   }
 }

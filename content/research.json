@@ -1,17 +1,17 @@
 {
   "currentResearch": [
     {
-      "lab": "The Cozy Corner",
-      "emoji": "🛋️",
-      "advisor": "Dr. Warm Lap",
-      "focus": "warmth-seeking behavior and human-proximity optimization",
-      "link": "#"
+      "lab": "Kempner Institute",
+      "emoji": "🤖",
+      "advisor": "Research Engineering Team",
+      "focus": "Video-Language Foundation Models",
+      "link": "https://github.com/KempnerInstitute/KempnerForge"
     },
     {
-      "lab": "Lucas & Cookie Play Lab",
-      "emoji": "🐱",
-      "advisor": "Prof. Lucas",
-      "focus": "cross-species play dynamics and cooperative napping",
+      "lab": "Harvard Geometric Machine Learning Lab",
+      "emoji": "፨",
+      "advisor": "Melanie Weber",
+      "focus": "Geometry of foundation models",
       "link": "#"
     }
   ]

@@ -3,7 +3,7 @@
 
 import { IconType } from 'react-icons'
 import {
-  FaRobot, FaBrain, FaGlobe, FaChartBar, FaWrench, FaHeartbeat,
+  FaRobot, FaBrain, FaGlobe, FaChartBar, FaWrench, FaHeartbeat, FaSmile,
 } from 'react-icons/fa'
 import type { ProjectItem } from '../types'
 
@@ -84,12 +84,25 @@ export const buildCategoryThemes = (dk: boolean): Record<ProjectItem['category']
     color: dk ? '#f09090' : '#c04040', glow: dk ? 'rgba(255,128,128,0.25)' : 'rgba(192,64,64,0.12)',
     icon: FaHeartbeat, label: 'HEALTHCARE', cmd: '$ python recommend.py',
   },
+  research: {
+    bg: dk ? '#2e2334' : '#ffeef6', border: dk ? '#c26e9c' : '#e899bf',
+    stripe: 'linear-gradient(180deg,#ff80bf,transparent)',
+    color: dk ? '#f0a0c8' : '#b0447a', glow: dk ? 'rgba(255,128,191,0.25)' : 'rgba(176,68,122,0.12)',
+    icon: FaBrain, label: 'RESEARCH', cmd: '$ python experiment.py',
+  },
+  fun: {
+    bg: dk ? '#3a3324' : '#fff8e1', border: dk ? '#d4b067' : '#e2c887',
+    stripe: 'linear-gradient(180deg,#ffd24d,transparent)',
+    color: dk ? '#ffd24d' : '#a17912', glow: dk ? 'rgba(255,210,77,0.25)' : 'rgba(212,167,44,0.12)',
+    icon: FaSmile, label: 'FUN', cmd: '$ ./have_fun.sh',
+  },
 })
 
 /* ── Article category labels & colors ─────────────────────────── */
 export const articleCategoryLabels: Record<ProjectItem['category'], string> = {
   robotics: 'Robotics', nlp: 'NLP / AI', 'web-app': 'Web / App',
   data: 'Data / ML', tooling: 'Tooling', healthcare: 'Healthcare',
+  research: 'Research', fun: 'Fun',
 }
 
 export const articleCategoryColors: Record<ProjectItem['category'], { fg: (dk: boolean) => string; bg: (dk: boolean) => string }> = {
@@ -99,6 +112,8 @@ export const articleCategoryColors: Record<ProjectItem['category'], { fg: (dk: b
   data:       { fg: dk => dk ? '#7ce3b6' : '#2f9e6a', bg: dk => dk ? 'rgba(124,227,182,0.15)' : 'rgba(47,158,106,0.1)' },
   tooling:    { fg: dk => dk ? '#7feeee' : '#2aa9a9', bg: dk => dk ? 'rgba(127,238,238,0.15)' : 'rgba(42,169,169,0.1)' },
   healthcare: { fg: dk => dk ? '#f09090' : '#c04040', bg: dk => dk ? 'rgba(240,144,144,0.15)' : 'rgba(192,64,64,0.1)' },
+  research:   { fg: dk => dk ? '#f0a0c8' : '#b0447a', bg: dk => dk ? 'rgba(240,160,200,0.15)' : 'rgba(176,68,122,0.1)' },
+  fun:        { fg: dk => dk ? '#ffd24d' : '#a17912', bg: dk => dk ? 'rgba(255,210,77,0.15)' : 'rgba(161,121,18,0.1)' },
 }
 
 /* ── Publication venue colors ─────────────────────────────────── */
@@ -122,5 +137,15 @@ export const publicationVenueColors: Record<string, { bg: (dk: boolean) => strin
     bg: dk => dk ? 'rgba(163, 190, 140, 0.15)' : 'rgba(54, 128, 90, 0.1)',
     fg: dk => dk ? '#a3be8c' : '#36805a',
     label: 'PREPRINT',
+  },
+  journal: {
+    bg: dk => dk ? 'rgba(208, 135, 112, 0.15)' : 'rgba(179, 90, 46, 0.1)',
+    fg: dk => dk ? '#d08770' : '#b35a2e',
+    label: 'JOURNAL',
+  },
+  thesis: {
+    bg: dk => dk ? 'rgba(144, 153, 171, 0.15)' : 'rgba(85, 101, 130, 0.1)',
+    fg: dk => dk ? '#9099ab' : '#556582',
+    label: 'THESIS',
   },
 }

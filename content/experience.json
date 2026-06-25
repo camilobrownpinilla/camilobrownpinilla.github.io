@@ -2,66 +2,87 @@
   "education": {
     "courses": [
       {
-        "course": "Master of Cuddle Sciences",
-        "institution": "Yaoyao's Lap Lab",
-        "year": "2024-2026"
-      },
-      {
-        "course": "Bachelor of Good Girl Arts",
-        "institution": "Home Sweet Home",
-        "year": "2020-2024"
+        "course": "Bachelor of Arts; Applied Mathematics",
+        "institution": "Harvard College",
+        "year": "2026"
       }
     ]
   },
-  "reviewing": [
-    { "venue": "International Conference on Treat Fairness 2026", "role": "Reviewer" },
-    { "venue": "Workshop on Cross-Species Play Dynamics 2025", "role": "Reviewer" }
-  ],
   "timeline": [
     {
-      "title": "Senior Cuddle Researcher",
-      "company": "The Cozy Corner",
-      "companyUrl": "#",
-      "location": "Next to Yaoyao",
-      "start": "2024-09-01",
-      "category": "research",
-      "roleType": "research",
+      "title": "Research Engineering Intern",
+      "company": "Kempner Institute",
+      "location": "Cambridge, MA",
+      "start": "2026-06",
       "isCurrent": true,
-      "summary": "Focus: warmth-seeking optimization and human-proximity maximization.",
-      "highlights": [
-        "Achieved 100% lap occupation rate during work-from-home hours.",
-        "Discovered that paw shakes increase treat yield by 60%.",
-        "Co-authored a paper with Lucas on optimal sunbeam sharing schedules."
-      ]
+      "category": "research",
+      "roleType": "research",
+      "highlights": []
     },
     {
-      "title": "Junior Play Companion",
-      "company": "Lucas & Cookie Inc.",
-      "companyUrl": "#",
-      "location": "Living Room",
-      "start": "2023-01-15",
-      "end": "2024-05-20",
+      "title": "KURE Fellow",
+      "company": "Geometric Machine Learning Group",
+      "location": "Cambridge, MA",
+      "start": "2025-04",
+      "isCurrent": true,
       "category": "research",
       "roleType": "research",
       "highlights": [
-        "Developed a multi-species play protocol with Ragdoll cat brother Lucas.",
-        "Optimized chase-and-tumble sequences for maximum fun with minimum furniture damage.",
-        "Won Best Duo Award at the annual living room play session."
+        "Built translation-invariant sentence embeddings by canonicalizing parallel sentences into Abstract Meaning Representation graphs and embedding them with a contrastively-trained GNN; framed cross-lingual translation as an approximate symmetry of meaning in the Geometric Deep Learning sense. Parsed a novel dataset of 4M AMR graphs for GNN pretraining.",
+        "Designed an LLM/GNN hybrid that injects translation-invariant AMR embeddings into pre-trained LLMs via soft-prompt tokens; exceeded LoRA fine-tuning on WMT24++ by ~3 COMET points on average using ~90% fewer trainable parameters."
       ]
     },
     {
-      "title": "Treat Quality Intern",
-      "company": "Kitchen Counter Labs",
-      "companyUrl": "#",
-      "location": "Kitchen",
-      "start": "2025-06-01",
-      "end": "2025-08-31",
-      "category": "industry",
-      "roleType": "sde",
+      "title": "Research Intern",
+      "company": "Music Information Retrieval Lab",
+      "location": "Claremont, CA",
+      "start": "2025-06",
+      "end": "2025-08",
+      "category": "research",
+      "roleType": "research",
       "highlights": [
-        "Evaluated 200+ treat varieties using advanced sniff-and-taste methodology.",
-        "Reduced treat waste to 0% (consumed all samples).",
-        "Developed a paw-shake-to-treat conversion pipeline with 3x throughput improvement."
+        "Evaluated 10 steering techniques across 8 target concepts in music-language models, measuring both controllability and changes in representation geometry.",
+        "Developed steering techniques combining Direct Preference Optimization with model distillation.",
+        "Built a training and evaluation pipeline supporting 100+ steered model variants."
+      ]
+    },
+    {
+      "title": "KURE Fellow – ML Foundations Group",
+      "company": "Kempner Institute",
+      "location": "Cambridge, MA",
+      "start": "2024-09",
+      "end": "2025-06",
+      "category": "research",
+      "roleType": "research",
+      "highlights": [
+        "Investigated quality-informed data repetition for LLM pre-training; matched DCLM baseline performance using 1/5 the unique tokens by repeating high-quality subsets.",
+        "Filtered 2T+ token datasets to train and evaluate 100M–4B parameter models across data-mixture ablations."
+      ]
+    },
+    {
+      "title": "Generative AI Research Fellow",
+      "company": "Ability Lab",
+      "location": "Cambridge, MA",
+      "start": "2024-06",
+      "end": "2024-08",
+      "category": "research",
+      "roleType": "research",
+      "highlights": [
+        "Implemented a diffusion model mapping IMU sensor sequences to 3D human motion reconstructions.",
+        "Presented at the Harvard D³ Institute Generative AI Symposium."
+      ]
+    },
+    {
+      "title": "Undergraduate Researcher",
+      "company": "Lichtman Lab",
+      "location": "Cambridge, MA",
+      "start": "2022-10",
+      "end": "2023-05",
+      "category": "research",
+      "roleType": "research",
+      "highlights": [
+        "Reconstructed nanometer-resolution neural circuits from a 2-petabyte 3D dataset of human cortical tissue.",
+        "Characterized chandelier-cell connectivity patterns in human temporal cortex; results contributed to a Society for Neuroscience 2025 abstract."
       ]
     }
   ]

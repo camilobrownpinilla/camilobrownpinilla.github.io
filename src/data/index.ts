@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 // ============================================================
-// Data loader (bilingual)
+// Data loader (English-only build)
 //
-// Loads content from two sources per language:
-//   - Markdown files (content/**/*.md, content/zh/**/*.md)
-//   - JSON files (content/*.json, content/zh/*.json)
+// Loads content from:
+//   - Markdown files (content/**/*.md)
+//   - JSON files (content/*.json)
 //
-// At build time, both languages are loaded eagerly.
-// At runtime, getLocalizedData(lang) selects the right set.
+// getLocalizedData(lang) keeps its signature for compatibility
+// but always returns the English dataset.
 // ============================================================
 
 import type {
@@ -19,17 +19,10 @@ import type {
 
 // ── Markdown glob imports (each .md → { frontmatter..., body: html }) ──
 
-// English (default)
 const projectMdsEn = import.meta.glob('/content/projects/*.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
 const articleMdsEn = import.meta.glob('/content/articles/*.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
 const publicationMdsEn = import.meta.glob('/content/publications/*.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
 const aboutMdEn = import.meta.glob('/content/about.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
-
-// Chinese
-const projectMdsZh = import.meta.glob('/content/zh/projects/*.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
-const articleMdsZh = import.meta.glob('/content/zh/articles/*.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
-const publicationMdsZh = import.meta.glob('/content/zh/publications/*.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
-const aboutMdZh = import.meta.glob('/content/zh/about.md', { eager: true }) as Record<string, { default: Record<string, unknown> }>
 
 function collectMd(modules: Record<string, { default: Record<string, unknown> }>): Record<string, unknown>[] {
   return Object.values(modules).map(m => {
@@ -70,8 +63,10 @@ function mdToPublication(raw: Record<string, unknown>): Publication {
 }
 
 function mdToAbout(raw: Record<string, unknown>): About {
-  const { _body, ...rest } = raw
-  const bodyStr = (_body as string) || ''
+  // about.md is loaded directly from the markdown plugin (not via collectMd),
+  // so the body key is `body` not `_body`.
+  const { body, ...rest } = raw
+  const bodyStr = (body as string) || ''
   const journey = bodyStr.replace(/<[^>]+>/g, '').trim()
   return { journey, ...rest } as unknown as About
 }
@@ -87,16 +82,7 @@ import siteJsonEn from '@content/site.json'
 import talksJsonEn from '@content/talks.json'
 import teachingJsonEn from '@content/teaching.json'
 
-import experienceJsonZh from '@content/zh/experience.json'
-import newsJsonZh from '@content/zh/news.json'
-import awardsJsonZh from '@content/zh/awards.json'
-import researchJsonZh from '@content/zh/research.json'
-import logosJsonZh from '@content/zh/logos.json'
-import siteJsonZh from '@content/zh/site.json'
-import talksJsonZh from '@content/zh/talks.json'
-import teachingJsonZh from '@content/zh/teaching.json'
-
-// ── Build both language datasets ──
+// ── Build the English dataset ──
 
 const enData = {
   projects: collectMd(projectMdsEn).map(mdToProject),
@@ -114,29 +100,9 @@ const enData = {
   siteConfig: siteJsonEn,
 }
 
-const zhData = {
-  projects: collectMd(projectMdsZh).map(mdToProject),
-  articles: collectMd(articleMdsZh).map(mdToProject),
-  publications: collectMd(publicationMdsZh).map(mdToPublication),
-  about: mdToAbout(Object.values(aboutMdZh)[0]?.default ?? {}),
-  research: researchJsonZh as Research,
-  experience: { ...experienceJsonZh, professional: [], academic: [] } as Experience,
-  experienceTimeline: experienceJsonZh.timeline as ExperienceEntry[],
-  news: newsJsonZh as NewsItem[],
-  awards: awardsJsonZh as Award[],
-  talks: talksJsonZh as Talk[],
-  teaching: teachingJsonZh as TeachingEntry[],
-  institutionLogos: logosJsonZh as Record<string, string>,
-  siteConfig: siteJsonZh,
-}
-
-const dataByLang: Record<string, typeof enData> = { en: enData, zh: zhData }
-
-/** Get content data for a specific language (falls back to English).
- *  Accepts region-suffixed codes like 'zh-CN' / 'zh-TW' from browser detection. */
-export function getLocalizedData(lang: string) {
-  if (lang?.toLowerCase().startsWith('zh')) return zhData
-  return dataByLang[lang] ?? enData
+/** Get content data. English-only build; the lang param is kept for API compatibility. */
+export function getLocalizedData(_lang: string) {
+  return enData
 }
 
 // ── Default exports (English, for backward compatibility) ──

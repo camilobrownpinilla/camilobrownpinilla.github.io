@@ -123,7 +123,7 @@ export interface ProjectItem {
   extraLinks?: ProjectLink[]
   tags: string[]
   date?: string
-  category: 'robotics' | 'nlp' | 'web-app' | 'data' | 'tooling' | 'healthcare'
+  category: 'robotics' | 'nlp' | 'web-app' | 'data' | 'tooling' | 'healthcare' | 'research' | 'fun'
   highlights?: string[]
   featuredImage?: string
   isOpenSource?: boolean
@@ -138,10 +138,10 @@ export interface Publication {
   title: string
   authors: string[]
   venue: string
-  venueType: 'conference' | 'workshop' | 'demo' | 'preprint'
+  venueType: 'conference' | 'workshop' | 'demo' | 'preprint' | 'journal' | 'thesis'
   year: number
   month?: string
-  status: 'accepted' | 'published' | 'preprint'
+  status?: 'accepted' | 'published' | 'preprint'
   abstract?: string
   keywords?: string[]
   links: {
