@@ -37,6 +37,7 @@ function About() {
   const SelectedPublications = useSlot('selectedPublications')
   const Talks = useSlot('talks')
   const Teaching = useSlot('teaching')
+  const Gallery = useSlot('gallery')
   const Accomplishments = useSlot('accomplishments')
   const Contact = useSlot('contact')
 
@@ -60,7 +61,7 @@ function About() {
           <Box key={key} w="full">
             <Container maxW={["full", "full", "7xl"]} px={[2, 4, 8]}>
               <Flex align="center" gap={3} mb={4}>
-                <Box h="2px" w="20px" bg="cyan.400" borderRadius="full" flexShrink={0} />
+                <Box h="2px" w="20px" bg="var(--accent-color)" borderRadius="full" flexShrink={0} />
                 <Heading size="md" fontWeight="semibold">{t('about.recentUpdates')}</Heading>
                 <Badge colorScheme="green" variant="subtle" fontSize="2xs" fontFamily="mono">{t('about.news')}</Badge>
                 <Box flex="1" h="1px" bg={lineColor} />
@@ -85,6 +86,8 @@ function About() {
         return <Talks key={key} />
       case 'teaching':
         return <Teaching key={key} />
+      case 'gallery':
+        return <Gallery key={key} />
       case 'accomplishments':
         return <Accomplishments key={key} />
       case 'contact':

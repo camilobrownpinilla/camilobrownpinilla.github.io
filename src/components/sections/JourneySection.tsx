@@ -30,7 +30,7 @@ const JourneySection: React.FC = () => {
     <Box w="full">
       <Container maxW={["full", "full", "7xl"]} px={[2, 4, 8]}>
         <Flex align="center" gap={3} w="full" mb={4}>
-          <Box h="2px" w="20px" bg="cyan.400" borderRadius="full" flexShrink={0} />
+          <Box h="2px" w="20px" bg="var(--accent-color)" borderRadius="full" flexShrink={0} />
           <Heading size={["sm", "md"]} fontWeight="semibold">{t('about.myJourney')}</Heading>
           <Box flex="1" h="1px" bg={lineColor} />
         </Flex>
@@ -44,13 +44,13 @@ const JourneySection: React.FC = () => {
                 <Box flexShrink={0} mt="6px">
                   <Box
                     w="14px" h="14px" borderRadius="full" border="2px solid"
-                    borderColor={index === about.journeyPhases!.length - 1 ? 'cyan.400' : dotBorder}
-                    bg={index === about.journeyPhases!.length - 1 ? 'cyan.400' : dotBg}
+                    borderColor={index === about.journeyPhases!.length - 1 ? 'var(--accent-color)' : dotBorder}
+                    bg={index === about.journeyPhases!.length - 1 ? 'var(--accent-color)' : dotBg}
                   />
                 </Box>
                 <Box flex={1} pb={2}>
                   <HStack spacing={2} mb={1} flexWrap="wrap">
-                    <Text fontSize="2xs" fontFamily="mono" color="cyan.400" fontWeight="semibold" textTransform="uppercase" letterSpacing="wide">
+                    <Text fontSize="2xs" fontFamily="mono" color="var(--accent-color)" fontWeight="semibold" textTransform="uppercase" letterSpacing="wide">
                       {phase.period}
                     </Text>
                     <Text fontSize="2xs" color={useColorModeValue('gray.400', 'gray.600')}>/</Text>
@@ -78,7 +78,7 @@ const JourneySection: React.FC = () => {
                 <Box w="14px" h="14px" borderRadius="full" border="2px dashed" borderColor={dotBorder} />
               </Box>
               <Link href="/experience" _hover={{ textDecoration: 'none' }}>
-                <HStack spacing={2} color={textColor} fontSize="xs" fontFamily="mono" transition="all 0.15s" _hover={{ color: 'cyan.400' }} mt="3px">
+                <HStack spacing={2} color={textColor} fontSize="xs" fontFamily="mono" transition="all 0.15s" _hover={{ color: 'var(--accent-color)' }} mt="3px">
                   <Text>{t('about.viewAllExperience')}</Text>
                   <Text>→</Text>
                 </HStack>

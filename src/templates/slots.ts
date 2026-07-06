@@ -41,6 +41,7 @@ export interface MentorshipSlotProps {}
 export interface SelectedPublicationsSlotProps {}
 export interface TalksSlotProps {}
 export interface TeachingSlotProps {}
+export interface GallerySlotProps {}
 export interface ContactSlotProps {}
 
 /* ── Slot map type ─────────────────────────────────────────── */
@@ -58,6 +59,7 @@ export interface ComponentSlots {
   selectedPublications: React.ComponentType<SelectedPublicationsSlotProps>
   talks: React.ComponentType<TalksSlotProps>
   teaching: React.ComponentType<TeachingSlotProps>
+  gallery: React.ComponentType<GallerySlotProps>
   contact: React.ComponentType<ContactSlotProps>
 }
 
@@ -72,6 +74,7 @@ export const DEFAULT_SECTIONS: SlotName[] = [
   'bio',
   'newsDisplay',
   'selectedPublications',
+  'gallery',
   'journey',
   'skills',
   'mentorship',
@@ -85,6 +88,6 @@ export const DEFAULT_SECTIONS: SlotName[] = [
 /** Sections that are rendered as home page sections (not layout-level) */
 export const SECTION_SLOTS: SlotName[] = [
   'hero', 'bio', 'skills', 'newsDisplay', 'selectedPublications',
-  'journey', 'mentorship', 'talks', 'teaching', 'accomplishments',
+  'gallery', 'journey', 'mentorship', 'talks', 'teaching', 'accomplishments',
   'contact', 'footer',
 ]

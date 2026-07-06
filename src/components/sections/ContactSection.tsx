@@ -24,17 +24,17 @@ const ContactSection: React.FC = () => {
     <Box w="full">
       <Container maxW={["full", "full", "7xl"]} px={[2, 4, 8]}>
         <Flex align="center" gap={3} mb={4}>
-          <Box h="2px" w="20px" bg="cyan.400" borderRadius="full" flexShrink={0} />
+          <Box h="2px" w="20px" bg="var(--accent-color)" borderRadius="full" flexShrink={0} />
           <Heading size="md" fontWeight="semibold">{t('about.contact', 'Contact')}</Heading>
           <Box flex="1" h="1px" bg={useColorModeValue('gray.200', 'gray.700')} />
         </Flex>
         <VStack spacing={2} align="stretch">
           {items.map((item) => (
             <HStack key={item.label} spacing={3}>
-              <DynamicIcon name={item.icon} boxSize={3.5} color="cyan.400" />
+              <DynamicIcon name={item.icon} boxSize={3.5} color="var(--accent-color)" />
               <Text fontSize="xs" color={textColor} minW="60px">{item.label}</Text>
               {item.href ? (
-                <Link href={item.href} isExternal fontSize="xs" color={linkColor} fontFamily="mono" _hover={{ color: 'cyan.400' }}>
+                <Link href={item.href} isExternal fontSize="xs" color={linkColor} fontFamily="mono" _hover={{ color: 'var(--accent-color)' }}>
                   {item.value}
                 </Link>
               ) : (

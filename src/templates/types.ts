@@ -29,6 +29,8 @@ export interface TemplatePages {
   projects?: React.ComponentType
   articles?: React.ComponentType
   experience?: React.ComponentType
+  gallery?: React.ComponentType
+  galleryLocation?: React.ComponentType
   guide?: React.ComponentType
   guideDocs?: React.ComponentType
 }

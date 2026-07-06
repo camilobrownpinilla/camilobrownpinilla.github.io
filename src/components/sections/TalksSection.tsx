@@ -6,7 +6,7 @@ import DynamicIcon from '../DynamicIcon'
 const typeLabels: Record<string, { icon: string; color: string }> = {
   keynote: { icon: 'FaStar', color: 'yellow.400' },
   invited: { icon: 'FaUserTie', color: 'purple.400' },
-  oral: { icon: 'FaMicrophone', color: 'cyan.400' },
+  oral: { icon: 'FaMicrophone', color: 'var(--accent-color)' },
   poster: { icon: 'FaImage', color: 'green.400' },
   tutorial: { icon: 'FaChalkboardTeacher', color: 'orange.400' },
   workshop: { icon: 'FaTools', color: 'blue.400' },
@@ -28,7 +28,7 @@ const TalksSection: React.FC = () => {
     <Box w="full">
       <Container maxW={["full", "full", "7xl"]} px={[2, 4, 8]}>
         <Flex align="center" gap={3} mb={4}>
-          <Box h="2px" w="20px" bg="cyan.400" borderRadius="full" flexShrink={0} />
+          <Box h="2px" w="20px" bg="var(--accent-color)" borderRadius="full" flexShrink={0} />
           <Heading size="md" fontWeight="semibold">{t('about.talks', 'Talks')}</Heading>
           <Box flex="1" h="1px" bg={useColorModeValue('gray.200', 'gray.700')} />
         </Flex>
@@ -49,12 +49,12 @@ const TalksSection: React.FC = () => {
                   {(talk.slidesUrl || talk.videoUrl) && (
                     <HStack spacing={2} mt={1}>
                       {talk.slidesUrl && (
-                        <Link href={talk.slidesUrl} isExternal fontSize="2xs" fontFamily="mono" color="cyan.400" _hover={{ textDecoration: 'underline' }}>
+                        <Link href={talk.slidesUrl} isExternal fontSize="2xs" fontFamily="mono" color="var(--accent-color)" _hover={{ textDecoration: 'underline' }}>
                           slides
                         </Link>
                       )}
                       {talk.videoUrl && (
-                        <Link href={talk.videoUrl} isExternal fontSize="2xs" fontFamily="mono" color="cyan.400" _hover={{ textDecoration: 'underline' }}>
+                        <Link href={talk.videoUrl} isExternal fontSize="2xs" fontFamily="mono" color="var(--accent-color)" _hover={{ textDecoration: 'underline' }}>
                           video
                         </Link>
                       )}

@@ -12,6 +12,8 @@ import Articles from '../../components/Articles'
 import Experience from '../../components/Experience'
 import GuideLanding from '../../components/GuideLanding'
 import GuideDocs from '../../components/GuideDocs'
+import Gallery from '../../components/Gallery'
+import GalleryLocation from '../../components/GalleryLocation'
 
 import Navbar from '../../components/Navbar'
 import HeroSection from '../../components/about/HeroSection'
@@ -27,6 +29,7 @@ import SelectedPublicationsSection from '../../components/sections/SelectedPubli
 import TalksSection from '../../components/sections/TalksSection'
 import TeachingSection from '../../components/sections/TeachingSection'
 import ContactSection from '../../components/sections/ContactSection'
+import GallerySection from '../../components/sections/GallerySection'
 
 const terminalTemplate: TemplateConfig = {
   id: 'terminal',
@@ -40,6 +43,8 @@ const terminalTemplate: TemplateConfig = {
     projects: Projects,
     articles: Articles,
     experience: Experience,
+    gallery: Gallery,
+    galleryLocation: GalleryLocation,
     guide: GuideLanding,
     guideDocs: GuideDocs,
   },
@@ -56,6 +61,7 @@ const terminalTemplate: TemplateConfig = {
     selectedPublications: SelectedPublicationsSection,
     talks: TalksSection,
     teaching: TeachingSection,
+    gallery: GallerySection,
     contact: ContactSection,
   },
 }

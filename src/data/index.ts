@@ -14,7 +14,7 @@
 
 import type {
   Research, Experience, NewsItem, About, Publication,
-  ProjectItem, Award, ExperienceEntry, Talk, TeachingEntry,
+  ProjectItem, Award, ExperienceEntry, Talk, TeachingEntry, Gallery,
 } from '../types'
 
 // ── Markdown glob imports (each .md → { frontmatter..., body: html }) ──
@@ -81,6 +81,7 @@ import logosJsonEn from '@content/logos.json'
 import siteJsonEn from '@content/site.json'
 import talksJsonEn from '@content/talks.json'
 import teachingJsonEn from '@content/teaching.json'
+import galleryJsonEn from '@content/gallery.json'
 
 // ── Build the English dataset ──
 
@@ -97,6 +98,7 @@ const enData = {
   talks: talksJsonEn as Talk[],
   teaching: teachingJsonEn as TeachingEntry[],
   institutionLogos: logosJsonEn as Record<string, string>,
+  gallery: galleryJsonEn as Gallery,
   siteConfig: siteJsonEn,
 }
 
@@ -119,6 +121,7 @@ export const awards = enData.awards
 export const talks = enData.talks
 export const teaching = enData.teaching
 export const institutionLogos = enData.institutionLogos
+export const gallery = enData.gallery
 
 // ── Helper functions ──
 

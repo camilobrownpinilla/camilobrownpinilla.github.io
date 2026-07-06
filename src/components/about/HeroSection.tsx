@@ -227,14 +227,14 @@ const HeroSection = ({ title, avatar, research = [], researchLogos = {}, educati
               </Text>
               <HStack spacing={2} flexShrink={0}>
                 <Link href={`mailto:${siteOwner.contact.academicEmail}`} isExternal _hover={{ textDecoration: 'none' }}>
-                  <HStack spacing={1.5} color={textColor} transition="all 0.15s" _hover={{ color: 'cyan.400' }}>
+                  <HStack spacing={1.5} color={textColor} transition="all 0.15s" _hover={{ color: 'var(--accent-color)' }}>
                     <DynamicIcon name="FaEnvelope" boxSize={3.5} />
                     <Text fontSize="xs" fontFamily="mono">email</Text>
                   </HStack>
                 </Link>
                 <Text color={textColor} opacity={0.2}>/</Text>
                 <Link href={siteOwner.social.linkedin} isExternal _hover={{ textDecoration: 'none' }}>
-                  <HStack spacing={1.5} color={textColor} transition="all 0.15s" _hover={{ color: 'cyan.400' }}>
+                  <HStack spacing={1.5} color={textColor} transition="all 0.15s" _hover={{ color: 'var(--accent-color)' }}>
                     <DynamicIcon name="FaLinkedin" boxSize={3.5} />
                     <Text fontSize="xs" fontFamily="mono">linkedin</Text>
                   </HStack>

@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
             <Link
               href="https://github.com/H-Freax/TermHub"
               isExternal
-              color="cyan.500"
+              color="var(--accent-color)"
               fontWeight="medium"
               _hover={{ textDecoration: 'underline' }}
             >

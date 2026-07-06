@@ -93,4 +93,42 @@ code {
   display: flex;
   align-items: center;
   gap: 0.3rem;
+}
+
+/* ── cobe globe marker labels (Gallery section) ───────────────
+   cobe exposes, per marker id: an anchor name `--cobe-<id>` and a
+   visibility variable `--cobe-visible-<id>` (present when the marker
+   faces the camera, absent when it rotates behind the globe). The
+   inline `opacity: var(--cobe-visible-<id>, 0)` on each label handles
+   the front/back show-hide; positioning uses CSS Anchor Positioning. */
+.globe-label {
+  position: absolute;
+  position-anchor: var(--cobe-anchor);
+  left: anchor(center);
+  bottom: anchor(top);
+  transform: translate(-50%, -6px);
+  margin: 0;
+  padding: 2px 7px;
+  border: none;
+  border-radius: 6px;
+  background: #FFC145;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, filter 0.15s ease, opacity 0.25s ease;
+  z-index: 2;
+}
+
+.globe-label:hover,
+.globe-label.is-active {
+  filter: brightness(1.15);
+  transform: translate(-50%, -8px) scale(1.08);
+  z-index: 3;
 } 

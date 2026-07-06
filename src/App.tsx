@@ -32,6 +32,12 @@ function App() {
               {features.experience && pages.experience && (
                 <Route path="/experience" element={<pages.experience />} />
               )}
+              {features.gallery && pages.gallery && (
+                <Route path="/gallery" element={<pages.gallery />} />
+              )}
+              {features.gallery && pages.galleryLocation && (
+                <Route path="/gallery/:location" element={<pages.galleryLocation />} />
+              )}
               {features.guide !== false && pages.guide && (
                 <Route path="/guide" element={<pages.guide />} />
               )}

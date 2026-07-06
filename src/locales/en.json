@@ -5,6 +5,7 @@
     "experience": "Experience",
     "projects": "Projects",
     "articles": "Articles",
+    "gallery": "Gallery",
     "guide": "Guide",
     "navigation": "Navigation"
   },
@@ -17,6 +18,7 @@
     "recentUpdates": "Recent Updates",
     "news": "News",
     "selectedPublications": "Selected Publications",
+    "gallery": "Gallery",
     "viewAllPublications": "View all publications",
     "myJourney": "My Journey",
     "viewAllExperience": "View all experience",
@@ -174,5 +176,12 @@
     "preprint": "PREPRINT",
     "journal": "JOURNAL",
     "thesis": "THESIS"
+  },
+  "gallery": {
+    "subtitle": "Photos from places I've been.",
+    "backToGallery": "All locations",
+    "photosComingSoon": "Photos coming soon.",
+    "notFound": "Location not found",
+    "emptyIndex": "Photos coming soon — pictures from around the world will land here."
   }
 }

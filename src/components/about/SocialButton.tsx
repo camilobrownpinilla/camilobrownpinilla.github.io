@@ -19,7 +19,7 @@ const SocialButton: React.FC<SocialButtonProps> = ({
   shadowColor = 'gray.500'
 }) => {
   const borderColor = useColorModeValue('gray.300', 'gray.600')
-  const hoverBorderColor = useColorModeValue('cyan.400', 'cyan.300')
+  const hoverBorderColor = useColorModeValue('var(--accent-color)', 'var(--accent-color)')
 
   return (
     <Tooltip label={label} fontSize="xs" hasArrow placement="bottom" openDelay={200} fontFamily="mono">

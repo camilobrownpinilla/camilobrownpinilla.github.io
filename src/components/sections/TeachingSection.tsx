@@ -25,7 +25,7 @@ const TeachingSection: React.FC = () => {
     <Box w="full">
       <Container maxW={["full", "full", "7xl"]} px={[2, 4, 8]}>
         <Flex align="center" gap={3} mb={4}>
-          <Box h="2px" w="20px" bg="cyan.400" borderRadius="full" flexShrink={0} />
+          <Box h="2px" w="20px" bg="var(--accent-color)" borderRadius="full" flexShrink={0} />
           <Heading size="md" fontWeight="semibold">{t('about.teaching', 'Teaching')}</Heading>
           <Box flex="1" h="1px" bg={useColorModeValue('gray.200', 'gray.700')} />
         </Flex>
@@ -33,12 +33,12 @@ const TeachingSection: React.FC = () => {
           {teaching.map((entry, i) => (
             <Flex key={i} align="start" gap={3} py={2.5} borderBottom="1px solid" borderColor={borderColor}>
               <Box mt="2px" flexShrink={0}>
-                <DynamicIcon name={roleIcons[entry.role] || roleIcons.other} boxSize={3.5} color="cyan.400" />
+                <DynamicIcon name={roleIcons[entry.role] || roleIcons.other} boxSize={3.5} color="var(--accent-color)" />
               </Box>
               <Box flex={1} minW={0}>
                 <Text fontSize="xs" fontWeight="medium" color={titleColor} lineHeight="short">
                   {entry.link ? (
-                    <Link href={entry.link} isExternal _hover={{ color: 'cyan.400' }}>{entry.course}</Link>
+                    <Link href={entry.link} isExternal _hover={{ color: 'var(--accent-color)' }}>{entry.course}</Link>
                   ) : entry.course}
                 </Text>
                 <HStack spacing={2} mt={0.5} flexWrap="wrap">

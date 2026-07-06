@@ -197,3 +197,21 @@ export interface Skill {
   category?: string
   level?: number
 }
+
+export interface GalleryPhoto {
+  src: string
+  caption?: string
+  alt?: string
+}
+
+export interface GalleryLocation {
+  slug: string
+  name: string
+  country?: string
+  lat: number
+  long: number
+  markerSize?: number
+  photos: GalleryPhoto[]
+}
+
+export type Gallery = GalleryLocation[]

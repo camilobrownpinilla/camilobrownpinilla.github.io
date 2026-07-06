@@ -38,6 +38,7 @@ export const navItems = [
   ...(siteConfig.features.publications ? [{ path: '/publications', labelKey: 'nav.publications' }] : []),
   ...(siteConfig.features.experience ? [{ path: '/experience', labelKey: 'nav.experience' }] : []),
   ...(siteConfig.features.projects ? [{ path: '/projects', labelKey: 'nav.projects' }] : []),
+  ...(siteConfig.features.gallery ? [{ path: '/gallery', labelKey: 'nav.gallery' }] : []),
   ...(siteConfig.features.articles ? [{ path: '/articles', labelKey: 'nav.articles' }] : []),
   ...(siteConfig.features.guide !== false ? [{ path: '/guide', labelKey: 'nav.guide' }] : []),
 ] as const

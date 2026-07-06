@@ -14,7 +14,7 @@ const MentorshipSection: React.FC = () => {
     <Box w="full">
       <Container maxW={["full", "full", "7xl"]} px={[2, 4, 8]}>
         <Flex align="center" gap={3} mb={3}>
-          <Box h="2px" w="20px" bg="cyan.400" borderRadius="full" flexShrink={0} />
+          <Box h="2px" w="20px" bg="var(--accent-color)" borderRadius="full" flexShrink={0} />
           <Heading size={["sm", "md"]} fontWeight="semibold">{about.mentorship.heading}</Heading>
           <Box flex="1" h="1px" bg={lineColor} />
         </Flex>
@@ -26,9 +26,9 @@ const MentorshipSection: React.FC = () => {
         <VStack spacing={0} align="stretch">
           {about.mentorship.mentees.map((mentee, index) => (
             <Flex key={index} align="center" gap={3} py={2.5} borderBottom="1px solid" borderColor={borderColor}>
-              <Box w="6px" h="6px" borderRadius="full" bg="cyan.400" flexShrink={0} />
+              <Box w="6px" h="6px" borderRadius="full" bg="var(--accent-color)" flexShrink={0} />
               <Link href={mentee.url} isExternal _hover={{ textDecoration: 'none' }}>
-                <Text fontSize="sm" fontWeight="medium" color={nameColor} transition="color 0.15s" _hover={{ color: 'cyan.400' }}>
+                <Text fontSize="sm" fontWeight="medium" color={nameColor} transition="color 0.15s" _hover={{ color: 'var(--accent-color)' }}>
                   {mentee.name}
                 </Text>
               </Link>
