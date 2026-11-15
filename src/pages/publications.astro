@@ -1,0 +1,10 @@
+---
+// Full list of publications (same cards as the home page).
+import Layout from '../components/Layout.astro';
+import Publications from '../sections/publications/Publications.astro';
+import { site } from '../site';
+---
+
+<Layout title={`Publications · ${site.name}`}>
+  <Publications header="publications" />
+</Layout>

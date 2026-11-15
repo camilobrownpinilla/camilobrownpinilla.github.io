@@ -1,0 +1,112 @@
+---
+// Publication titlecards. Edit the list in publications.yaml.
+//   featuredOnly: show only entries with `featured: true` (home page)
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Card from '../../components/Card.astro';
+import Placeholder from '../../assets/icons/image-placeholder.svg';
+
+interface Props {
+  featuredOnly?: boolean;
+  header?: string;
+}
+const { featuredOnly = false, header } = Astro.props;
+
+const all = await getCollection('publications');
+const pubs = featuredOnly ? all.filter((p) => p.data.featured) : all;
+const isExternal = (url: string) => /^https?:\/\//.test(url);
+---
+
+<Card id="publications" kicker="~/publications+projects" header={header}>
+  <div class="head">
+    <h2>{featuredOnly ? 'Featured Publications' : 'All Publications'}</h2>
+  </div>
+
+  <div class="list">
+    {pubs.map(({ data: p }) => (
+      <article class="pub">
+        <div class="thumb">
+          {p.image
+            ? <Image src={p.image} alt="" width={320} height={320} />
+            : <Placeholder width={32} height={32} aria-hidden="true" />}
+        </div>
+        <div class="content">
+          <h3>{p.title}</h3>
+          {(p.authors || p.venue) && (
+            <p class="meta">{[p.authors, p.venue].filter(Boolean).join(' · ')}</p>
+          )}
+          <p class="summary">{p.summary}</p>
+          {p.links.length > 0 && (
+            <div class="links">
+              {p.links.map((l) => (
+                <a href={l.url} {...(isExternal(l.url) && { target: '_blank', rel: 'noopener' })}>{l.label}</a>
+              ))}
+            </div>
+          )}
+        </div>
+      </article>
+    ))}
+  </div>
+
+  {featuredOnly && (
+    <a class="view-all" href="/publications">View all publications →</a>
+  )}
+</Card>
+
+<style>
+  .head { margin-top: -20px; } /* kicker sits 12px above the title in the design */
+  h2 {
+    font: 700 28px/normal var(--font-sans);
+    color: var(--text-strong);
+  }
+  .list { display: flex; flex-direction: column; gap: 24px; }
+  .pub {
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-item);
+    box-shadow: var(--shadow-item);
+  }
+  .thumb {
+    flex-shrink: 0;
+    width: 160px;
+    height: 160px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+  .thumb :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+  h3 { font: 700 18px/1.4 var(--font-sans); color: var(--text-strong); }
+  .meta { margin-top: -10px; font: 400 13px/1.5 var(--font-sans); color: var(--text-subtle); }
+  .summary { font: 400 14px/1.5 var(--font-sans); color: var(--text-muted); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .links a {
+    padding: 6px 12px;
+    font: 600 12px/normal var(--font-sans);
+    color: var(--text-body);
+    text-decoration: none;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .links a:hover { border-color: var(--accent); color: var(--text-strong); }
+  .view-all {
+    font: 600 14px/normal var(--font-sans);
+    color: var(--text-strong);
+    text-decoration: none;
+  }
+  .view-all:hover { color: var(--accent); }
+
+  @media (max-width: 700px) {
+    .pub { flex-direction: column; padding: 16px; gap: 16px; }
+    .thumb { width: 96px; height: 96px; }
+    h2 { font-size: 24px; }
+  }
+</style>

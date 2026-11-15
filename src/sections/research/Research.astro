@@ -1,0 +1,23 @@
+---
+// Research statement. Edit the prose in research.md.
+import Card from '../../components/Card.astro';
+import { Content } from './research.md';
+---
+
+<Card id="research" kicker="~/research">
+  <div class="prose"><Content /></div>
+</Card>
+
+<style>
+  .prose {
+    max-width: 760px;
+    font: 400 16px/1.7 var(--font-sans);
+    color: var(--text-body);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .prose :global(a) { color: var(--text-strong); text-decoration-color: var(--accent); text-underline-offset: 3px; }
+  .prose :global(a:hover) { color: var(--accent); }
+  .prose :global(ul), .prose :global(ol) { margin: 0; padding-left: 20px; }
+</style>

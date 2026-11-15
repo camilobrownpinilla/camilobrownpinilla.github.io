@@ -1,0 +1,15 @@
+---
+// Home page. Each line is one section — reorder or remove freely.
+import Layout from '../components/Layout.astro';
+import Home from '../sections/home/Home.astro';
+import Research from '../sections/research/Research.astro';
+import Publications from '../sections/publications/Publications.astro';
+import Misc from '../sections/misc/Misc.astro';
+---
+
+<Layout>
+  <Home />
+  <Research />
+  <Publications featuredOnly />
+  <Misc />
+</Layout>

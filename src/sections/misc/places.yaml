@@ -1,0 +1,14 @@
+# Places on the travel globe.
+# To add a place: add a block here, then put its photos in ./photos/<slug>/
+# (any .jpg/.jpeg/.png/.webp — they show up automatically, in filename order).
+
+- { slug: bogota,      name: Bogotá,      country: Colombia,    lat: 4.711,   long: -74.0721 }
+- { slug: hanoi,       name: Hanoi,       country: Vietnam,     lat: 21.0278, long: 105.8342 }
+- { slug: hong-kong,   name: Hong Kong,   country: "",          lat: 22.3193, long: 114.1694 }
+- { slug: san-diego,   name: San Diego,   country: USA,         lat: 32.7157, long: -117.1611 }
+- { slug: los-angeles, name: Los Angeles, country: USA,         lat: 34.0522, long: -118.2437 }
+- { slug: boston,      name: Boston,      country: USA,         lat: 42.3601, long: -71.0589 }
+- { slug: new-york,    name: New York,    country: USA,         lat: 40.7128, long: -74.006 }
+- { slug: amsterdam,   name: Amsterdam,   country: Netherlands, lat: 52.3676, long: 4.9041 }
+- { slug: antwerp,     name: Antwerp,     country: Belgium,     lat: 51.2194, long: 4.4025 }
+- { slug: tijuana,     name: Tijuana,     country: Mexico,      lat: 32.5149, long: -117.0382 }

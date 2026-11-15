@@ -1,0 +1,40 @@
+---
+// Page shell: <head>, fonts, gradient background, centered column of cards.
+import '../styles/global.css';
+import { site } from '../site';
+
+interface Props {
+  title?: string;
+}
+const { title = site.name } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={site.description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<style>
+  main {
+    max-width: calc(1120px + 2 * var(--page-pad-x));
+    margin: 0 auto;
+    padding: 80px var(--page-pad-x);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+  }
+  @media (max-width: 700px) {
+    main { padding-block: 24px; gap: 24px; }
+  }
+</style>

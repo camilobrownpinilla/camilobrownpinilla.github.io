@@ -1,0 +1,1 @@
+I am a researcher interested in representation learning, neural architectures, and mechanistic interpretability. I recently graduated with an AB in Applied Mathematics from Harvard College where I wrote my senior thesis on a geometric approach to NLP with Melanie Weber.

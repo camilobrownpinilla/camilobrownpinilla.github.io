@@ -1,0 +1,413 @@
+---
+// Travel globe. Places live in places.yaml; photos in ./photos/<slug>/.
+// Click a pin (or a name in the list) → side panel with that place's photos
+// → "View all photos" (or any thumbnail) → full-screen lightbox.
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+// Find every photo and group it by its folder name (= place slug).
+const files = import.meta.glob<{ default: ImageMetadata }>(
+  './photos/*/*.{jpg,jpeg,png,webp,JPG,JPEG,PNG,WEBP}',
+  { eager: true },
+);
+const photosBySlug: Record<string, ImageMetadata[]> = {};
+for (const path of Object.keys(files).sort()) {
+  const slug = path.split('/')[2];
+  (photosBySlug[slug] ??= []).push(files[path].default);
+}
+
+// Build a small thumbnail and a large version of each photo at build time.
+const places = await Promise.all(
+  (await getCollection('places')).map(async ({ id, data }) => ({
+    slug: id,
+    ...data,
+    photos: await Promise.all(
+      (photosBySlug[id] ?? []).map(async (src) => ({
+        thumb: (await getImage({ src, width: 320, format: 'webp' })).src,
+        full: (await getImage({ src, width: 1800, format: 'webp' })).src,
+      })),
+    ),
+  })),
+);
+
+const markers = places.map((p) => ({ id: p.slug, location: [p.lat, p.long] }));
+---
+
+<div class="gallery" data-markers={JSON.stringify(markers)}>
+  <div class="globe">
+    <canvas aria-label="Interactive globe of places I've visited"></canvas>
+    {places.map((p) => (
+      <button
+        class="pin"
+        data-slug={p.slug}
+        tabindex="-1"
+        style={`--anchor: --cobe-${p.slug}; opacity: var(--cobe-visible-${p.slug}, 0); pointer-events: var(--cobe-visible-${p.slug}, none);`}
+      >{p.name}</button>
+    ))}
+  </div>
+
+  <div class="side">
+    <!-- Default view: list of places (also the keyboard / no-anchor-support path) -->
+    <div class="panel list" data-panel="list">
+      <p class="sub-label">Places</p>
+      <ul>
+        {places.map((p) => (
+          <li>
+            <button data-slug={p.slug}>
+              {p.name}<span>{p.photos.length} photo{p.photos.length === 1 ? '' : 's'}</span>
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- One panel per place, shown when that place is selected -->
+    {places.map((p) => (
+      <div class="panel place" data-panel={p.slug} hidden>
+        <div class="place-head">
+          <div>
+            <p class="sub-title">{p.name}</p>
+            {p.country && <p class="country">{p.country}</p>}
+          </div>
+          <button class="close" data-close aria-label="Back to all places">×</button>
+        </div>
+        {p.photos.length > 0 ? (
+          <>
+            <div class="thumbs">
+              {p.photos.map((ph, i) => (
+                <button data-open={i} data-full={ph.full} aria-label={`Open photo ${i + 1} of ${p.name}`}>
+                  <img src={ph.thumb} alt="" loading="lazy" width="160" height="160" />
+                </button>
+              ))}
+            </div>
+            <button class="view-all" data-open="0">View all photos →</button>
+          </>
+        ) : (
+          <p class="empty">No photos yet.</p>
+        )}
+      </div>
+    ))}
+  </div>
+
+  <dialog class="lightbox" aria-label="Photo viewer">
+    <img alt="" />
+    <p class="counter"></p>
+    <button class="lb-close" aria-label="Close">×</button>
+    <button class="lb-prev" aria-label="Previous photo">‹</button>
+    <button class="lb-next" aria-label="Next photo">›</button>
+  </dialog>
+</div>
+
+<script>
+  import createGlobe from 'cobe';
+
+  const root = document.querySelector<HTMLElement>('.gallery')!;
+  const canvas = root.querySelector('canvas')!;
+  const markers = JSON.parse(root.dataset.markers!) as { id: string; location: [number, number] }[];
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Globe ─────────────────────────────────────────────
+  let active: string | null = null;
+  let phi = 0;
+  let theta = 0.25;
+  let target: [number, number] | null = null; // [phi, theta] to rotate toward
+  let dragStart: number | null = null;
+  let size = canvas.offsetWidth;
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+
+  const markerList = () =>
+    markers.map((m) => ({ ...m, size: m.id === active ? 0.08 : 0.045 }));
+
+  const globe = createGlobe(canvas, {
+    devicePixelRatio: dpr,
+    width: size * dpr,
+    height: size * dpr,
+    phi,
+    theta,
+    dark: 0,
+    diffuse: 1.3,
+    mapSamples: 16000,
+    mapBrightness: 6,
+    baseColor: [0.88, 0.9, 0.94],
+    markerColor: [1, 0.4, 0.8], // #ff66cd
+    glowColor: [0.93, 0.95, 0.98],
+    markers: markerList(),
+  });
+
+  function frame() {
+    if (target) {
+      phi += (target[0] - phi) * 0.08;
+      theta += (target[1] - theta) * 0.08;
+    } else if (dragStart === null && !reduceMotion) {
+      phi += 0.0025;
+    }
+    globe.update({ phi, theta, width: size * dpr, height: size * dpr });
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+  canvas.style.opacity = '1';
+  new ResizeObserver(() => (size = canvas.offsetWidth)).observe(canvas);
+
+  canvas.addEventListener('pointerdown', (e) => {
+    dragStart = e.clientX;
+    target = null;
+    canvas.setPointerCapture(e.pointerId);
+  });
+  canvas.addEventListener('pointermove', (e) => {
+    if (dragStart === null) return;
+    phi += (e.clientX - dragStart) / 200;
+    dragStart = e.clientX;
+  });
+  const endDrag = () => (dragStart = null);
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', endDrag);
+
+  // ── Selecting a place ─────────────────────────────────
+  function select(slug: string | null) {
+    active = slug;
+    globe.update({ markers: markerList() });
+    root.querySelectorAll<HTMLElement>('[data-panel]').forEach((p) => {
+      p.hidden = p.dataset.panel !== (slug ?? 'list');
+    });
+    root.querySelectorAll('.pin').forEach((b) =>
+      b.classList.toggle('active', (b as HTMLElement).dataset.slug === slug),
+    );
+    const m = markers.find((m) => m.id === slug);
+    if (m) {
+      // Rotate so the place faces the viewer (take the shortest way around).
+      const [lat, long] = m.location;
+      let p = Math.PI - ((long * Math.PI) / 180 - Math.PI / 2);
+      p += Math.round((phi - p) / (2 * Math.PI)) * 2 * Math.PI;
+      target = [p, (lat * Math.PI) / 180 * 0.6];
+    } else {
+      target = null;
+    }
+  }
+
+  root.querySelectorAll<HTMLElement>('.pin, .list button').forEach((b) =>
+    b.addEventListener('click', () => select(b.dataset.slug!)),
+  );
+  root.querySelectorAll('[data-close]').forEach((b) =>
+    b.addEventListener('click', () => select(null)),
+  );
+
+  // ── Lightbox ──────────────────────────────────────────
+  const dialog = root.querySelector('dialog')!;
+  const img = dialog.querySelector('img')!;
+  const counter = dialog.querySelector('.counter')!;
+  let photos: string[] = [];
+  let index = 0;
+
+  function show(i: number) {
+    index = (i + photos.length) % photos.length;
+    img.src = photos[index];
+    counter.textContent = `${index + 1} / ${photos.length}`;
+  }
+
+  root.querySelectorAll<HTMLElement>('[data-open]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const panel = b.closest<HTMLElement>('[data-panel]')!;
+      photos = [...panel.querySelectorAll<HTMLElement>('[data-full]')].map((t) => t.dataset.full!);
+      show(Number(b.dataset.open));
+      dialog.showModal();
+    }),
+  );
+  dialog.querySelector('.lb-prev')!.addEventListener('click', () => show(index - 1));
+  dialog.querySelector('.lb-next')!.addEventListener('click', () => show(index + 1));
+  dialog.querySelector('.lb-close')!.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
+  dialog.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') show(index - 1);
+    if (e.key === 'ArrowRight') show(index + 1);
+  });
+</script>
+
+<style>
+  .gallery {
+    display: flex;
+    gap: 24px;
+    height: 420px;
+    padding: 24px;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+  }
+
+  /* Globe */
+  .globe {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 1;
+    flex-shrink: 0;
+  }
+  canvas {
+    width: 100%;
+    height: 100%;
+    cursor: grab;
+    touch-action: pan-y;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    contain: layout paint size;
+  }
+  canvas:active { cursor: grabbing; }
+
+  /* Pin labels, placed on the globe via CSS anchor positioning (cobe provides the anchors). */
+  .pin { display: none; }
+  @supports (anchor-name: --x) {
+    .pin {
+      display: block;
+      position: absolute;
+      position-anchor: var(--anchor);
+      left: anchor(center);
+      bottom: anchor(top);
+      transform: translate(-50%, -6px);
+      padding: 2px 8px;
+      font: 700 11px/1.5 var(--font-mono);
+      color: var(--text-strong);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .pin:hover, .pin.active { background: var(--accent); border-color: var(--accent); color: #fff; z-index: 2; }
+  }
+
+  /* Side panel */
+  .side { flex: 1; min-width: 0; display: flex; }
+  .panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-height: 0;
+  }
+  .panel[hidden] { display: none; }
+  .list ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+  }
+  .list button, .place button {
+    font: inherit;
+    cursor: pointer;
+  }
+  .list li button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    padding: 10px 14px;
+    text-align: left;
+    font: 600 14px/normal var(--font-sans);
+    color: var(--text-strong);
+    background: #fff;
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    box-shadow: var(--shadow-item);
+  }
+  .list li button:hover { border-color: var(--accent); }
+  .list li span { font: 400 12px/normal var(--font-mono); color: var(--text-subtle); }
+
+  .place-head { display: flex; justify-content: space-between; align-items: flex-start; }
+  .country { font: 400 13px/1.5 var(--font-sans); color: var(--text-subtle); }
+  .close {
+    width: 32px;
+    height: 32px;
+    font-size: 20px !important;
+    line-height: 1;
+    color: var(--text-muted);
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .close:hover { color: var(--accent); }
+  .thumbs {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    grid-auto-rows: min-content;
+    gap: 8px;
+  }
+  .thumbs button {
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: var(--surface);
+  }
+  .thumbs img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.2s; }
+  .thumbs button:hover img { transform: scale(1.05); }
+  .view-all {
+    align-self: flex-start;
+    padding: 0;
+    font: 600 14px/normal var(--font-sans) !important;
+    color: var(--text-strong);
+    background: none;
+    border: 0;
+  }
+  .view-all:hover { color: var(--accent); }
+  .empty { font: 400 14px/1.5 var(--font-sans); color: var(--text-subtle); }
+
+  /* Lightbox */
+  .lightbox {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .lightbox::backdrop { background: rgba(15, 23, 42, 0.92); }
+  .lightbox[open] { display: grid; place-items: center; }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: 8px;
+    object-fit: contain;
+  }
+  .lightbox button {
+    position: fixed;
+    width: 48px;
+    height: 48px;
+    font: 400 28px/1 var(--font-sans);
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 0;
+    border-radius: 24px;
+    cursor: pointer;
+  }
+  .lightbox button:hover { background: var(--accent); }
+  .lb-close { top: 16px; right: 16px; }
+  .lb-prev { left: 16px; top: 50%; transform: translateY(-50%); }
+  .lb-next { right: 16px; top: 50%; transform: translateY(-50%); }
+  .counter {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font: 400 13px/normal var(--font-mono);
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  @media (max-width: 900px) {
+    .gallery { flex-direction: column; height: auto; padding: 16px; }
+    .globe { width: min(100%, 360px); height: auto; margin: 0 auto; }
+    .thumbs { max-height: 320px; }
+    .list ul { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  }
+</style>

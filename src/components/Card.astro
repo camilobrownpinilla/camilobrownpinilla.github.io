@@ -1,0 +1,86 @@
+---
+// The frosted-glass card every section sits in.
+//   kicker:  the pink "~/path" label at the top
+//   header:  pass the active tab name (e.g. "home") to show the window title bar
+import { nav } from '../site';
+import WindowDots from '../assets/icons/window-dots.svg';
+
+interface Props {
+  id?: string;
+  kicker: string;
+  header?: string;
+}
+const { id, kicker, header } = Astro.props;
+// On the home card the breadcrumb says "home" but the "about" tab is highlighted.
+const activeTab = header === 'home' ? 'about' : header;
+---
+
+<section class="card" id={id}>
+  {header && (
+    <div class="window">
+      <WindowDots width={52} height={12} aria-hidden="true" />
+      <p class="crumb">cbp <span>/</span> <strong>{header}</strong></p>
+      <nav class="tabs" aria-label="Sections">
+        {nav.map((t) => (
+          <a href={t.href} class:list={{ active: t.label === activeTab }}>{t.label}</a>
+        ))}
+      </nav>
+    </div>
+  )}
+  <div class="body">
+    <p class="kicker">{kicker}</p>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    scroll-margin-top: 24px;
+  }
+  .body {
+    padding: var(--card-pad);
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .kicker {
+    font: 700 14px/normal var(--font-mono);
+    color: var(--accent);
+  }
+  /* The home card (with title bar) has a slightly larger kicker and gap. */
+  .window + .body { gap: 40px; }
+  .window + .body .kicker { font-size: 16px; }
+
+  /* Window title bar */
+  .window {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 24px;
+    background: var(--surface-2);
+    border-bottom: 1px solid var(--border);
+    font: 400 13px/normal var(--font-mono);
+    color: var(--text-muted);
+  }
+  .window :global(svg) { flex-shrink: 0; }
+  .crumb span { margin: 0 4px; }
+  .crumb strong { color: var(--accent); }
+  .tabs { display: flex; flex-wrap: wrap; gap: 16px; }
+  .tabs a { text-decoration: none; }
+  .tabs a:hover { color: var(--text-strong); }
+  .tabs a.active { color: var(--accent); font-weight: 700; text-decoration: underline; }
+
+  @media (max-width: 700px) {
+    .window { flex-wrap: wrap; padding: 12px 16px; }
+    .crumb { display: none; }
+    .tabs { gap: 12px; }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+// Hero: name, bio (edit bio.md), social buttons, headshot.
+import { Image } from 'astro:assets';
+import Card from '../../components/Card.astro';
+import { site } from '../../site';
+import { Content as Bio } from './bio.md';
+import headshot from '../../assets/headshot.jpg';
+import GitHub from '../../assets/icons/github.svg';
+import LinkedIn from '../../assets/icons/linkedin.svg';
+import Twitter from '../../assets/icons/twitter.svg';
+import Scholar from '../../assets/icons/scholar.svg';
+
+const buttons = [
+  { label: 'GitHub', url: site.socials.github, Icon: GitHub },
+  { label: 'LinkedIn', url: site.socials.linkedin, Icon: LinkedIn },
+  { label: 'Twitter', url: site.socials.twitter, Icon: Twitter },
+  { label: 'Google Scholar', url: site.socials.scholar, Icon: Scholar },
+].filter((b) => b.url);
+---
+
+<Card id="about" kicker="~/home" header="home">
+  <div class="profile">
+    <div class="details">
+      <h1>{site.name}</h1>
+      <div class="bio"><Bio /></div>
+      <div class="socials">
+        {buttons.map(({ label, url, Icon }) => (
+          <a href={url} aria-label={label} title={label} target="_blank" rel="noopener">
+            <Icon width={16} height={16} aria-hidden="true" />
+          </a>
+        ))}
+      </div>
+    </div>
+    <Image class="headshot" src={headshot} alt={`Photo of ${site.name}`} width={440} height={440} loading="eager" />
+  </div>
+</Card>
+
+<style>
+  .profile {
+    display: flex;
+    gap: 48px;
+    align-items: flex-start;
+  }
+  .details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  h1 {
+    font: 700 48px/1.2 var(--font-display);
+    color: var(--text-strong);
+  }
+  .bio {
+    font: 400 18px/1.6 var(--font-sans);
+    color: var(--text-body);
+  }
+  .socials { display: flex; gap: 12px; }
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--glass-border);
+    transition: background 0.15s;
+  }
+  .socials a:hover { background: #fff; }
+  .headshot {
+    flex-shrink: 0;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 30% center;
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 700px) {
+    .profile { flex-direction: column-reverse; gap: 24px; }
+    .headshot { width: 160px; height: 160px; }
+    h1 { font-size: 36px; }
+    .bio { font-size: 16px; }
+  }
+</style>

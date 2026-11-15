@@ -1,0 +1,29 @@
+---
+// Misc card: travel globe + music. Remove either line below to drop a subsection.
+import Card from '../../components/Card.astro';
+import Gallery from './Gallery.astro';
+import Music from './Music.astro';
+---
+
+<Card id="misc" kicker="~/misc">
+  <div class="sub">
+    <div class="sub-head">
+      <p class="sub-label">Gallery</p>
+      <h2 class="sub-title">Interactive travel globe - click pins to view photos</h2>
+    </div>
+    <Gallery />
+  </div>
+
+  <div class="sub">
+    <div class="sub-head">
+      <p class="sub-label">Music</p>
+      <h2 class="sub-title">Top albums this month</h2>
+    </div>
+    <Music />
+  </div>
+</Card>
+
+<style>
+  .sub { display: flex; flex-direction: column; gap: 16px; }
+  .sub-head { display: flex; flex-direction: column; gap: 6px; }
+</style>
