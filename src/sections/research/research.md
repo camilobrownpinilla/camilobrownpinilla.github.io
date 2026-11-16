@@ -1,5 +1,2 @@
 <!-- Research statement. Plain Markdown: paragraphs, **bold**, [links](https://...), lists. -->
-
 Modern artificial systems are capable of forming remarkably organized representations of disparate and noisy streams of information. However, models still struggle to generalize, and the mechanisms by which their representations are learned and composed are poorly understood. I study the mathematical principles that describe this structure and how those principles can guide model architectures and training objectives. My goal is to understand, and help build, representations that generalize and compose across tasks and modalities.
-
-Currently, I am an AI Fellow at the [Kempner Institute](https://github.com/KempnerInstitute/KempnerForge) working with Yilun Du and Nikhil Anand on decentralized and embodied multiagent systems.
