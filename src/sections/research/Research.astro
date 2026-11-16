@@ -9,9 +9,9 @@ import { Content } from './research.md';
 </Card>
 
 <style>
+  /* Same type as the bio on the home card. */
   .prose {
-    max-width: 760px;
-    font: 400 16px/1.7 var(--font-sans);
+    font: 400 18px/1.6 var(--font-sans);
     color: var(--text-body);
     display: flex;
     flex-direction: column;
@@ -20,4 +20,8 @@ import { Content } from './research.md';
   .prose :global(a) { color: var(--text-strong); text-decoration-color: var(--accent); text-underline-offset: 3px; }
   .prose :global(a:hover) { color: var(--accent); }
   .prose :global(ul), .prose :global(ol) { margin: 0; padding-left: 20px; }
+
+  @media (max-width: 700px) {
+    .prose { font-size: 16px; }
+  }
 </style>
