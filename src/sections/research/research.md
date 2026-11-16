@@ -1,5 +1,5 @@
 <!-- Research statement. Plain Markdown: paragraphs, **bold**, [links](https://...), lists. -->
 
-I use geometric and topological tools to study the design and interpretability of foundation models, with a focus on structured representation learning.
+Modern artificial systems are capable of forming remarkably organized representations of disparate and noisy streams of information. However, models still struggle to generalize, and the mechanisms by which their representations are learned and composed are poorly understood. I study the mathematical principles that describe this structure and how those principles can guide model architectures and training objectives. My goal is to understand, and help build, representations that generalize and compose across tasks and modalities.
 
-Currently, I work with the research engineering team at the [Kempner Institute](https://github.com/KempnerInstitute/KempnerForge) on video-language foundation models, and with Melanie Weber's Geometric Machine Learning Lab at Harvard on the geometry of foundation models.
+Currently, I am an AI Fellow at the [Kempner Institute](https://github.com/KempnerInstitute/KempnerForge) working with Yilun Du and Nikhil Anand on decentralized and embodied multiagent systems.

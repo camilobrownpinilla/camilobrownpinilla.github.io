@@ -15,15 +15,19 @@
   summary: Using Abstract Meaning Representations as a translation-invariant canonical form, we inject geometric semantic embeddings into pre-trained LLMs via soft prompt tuning, matching LoRA fine-tuning with roughly one-eighth the learnable parameters.
   authors: Camilo Brown-Pinilla, Melanie Weber
   venue: Senior Thesis, Harvard College, 2026
+  image: ./images/thesis-figure.png
   featured: true
   links:
-    - { label: Paper, url: "https://dash.harvard.edu/entities/publication/cf958351-022d-4f5a-82cb-a50d647278ae" }
+    - {
+        label: Paper,
+        url: "https://dash.harvard.edu/entities/publication/cf958351-022d-4f5a-82cb-a50d647278ae",
+      }
 
 - id: pruner-explainability
   title: "Explain This, Pruner! The Effect of Zero-Order Pruning on LLM Explainability and Curvature"
   summary: We evaluate how pruning affects the faithfulness of SHAP and Integrated Gradients explanations, finding that magnitude pruning preserves explainability while random pruning can degrade it through emergent high-curvature regions.
   authors: Camilo Brown-Pinilla, Joseph Bejjani, Daniel Ettel
   venue: The Harvard Undergraduate Research Journal, 2025
-  featured: true
+  featured: false
   links:
     - { label: Paper, url: "https://doi.org/10.62571/gujf5t1klb25jbcbde" }

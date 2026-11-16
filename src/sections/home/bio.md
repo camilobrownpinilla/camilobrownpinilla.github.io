@@ -1,1 +1,3 @@
 I am a researcher interested in representation learning, neural architectures, and mechanistic interpretability. I recently graduated with an AB in Applied Mathematics from Harvard College where I wrote my senior thesis on a geometric approach to NLP with Melanie Weber.
+
+I am currently an AI Fellow at the [Kempner Institute](kempnerinstitute.harvard.edu) working on multiagent systems. Previously I studied Applied Mathematics at Harvard College where I wrote my [thesis](https://dash.harvard.edu/handle/1/42742210) on geometry and NLP with Melanie Weber. My main interests are in interpretability, structured representation learning, and geometric machine learning. I'm always very excited to discuss these subjects and AI more broadly -- please feel free to reach out!
