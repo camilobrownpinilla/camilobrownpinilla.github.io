@@ -52,7 +52,8 @@
     );
   }
 
-  load().catch(() => {
+  load().catch((err) => {
+    console.warn('[music] Last.fm albums failed to load:', err);
     list.hidden = true;
     status.hidden = false;
   });

@@ -42,8 +42,9 @@ const markers = places.map((p) => ({ id: p.slug, location: [p.lat, p.long] }));
         class="pin"
         data-slug={p.slug}
         tabindex="-1"
+        aria-label={p.name}
         style={`--anchor: --cobe-${p.slug}; opacity: var(--cobe-visible-${p.slug}, 0); pointer-events: var(--cobe-visible-${p.slug}, none);`}
-      >{p.name}</button>
+      ></button>
     ))}
   </div>
 
@@ -254,7 +255,8 @@ const markers = places.map((p) => ({ id: p.slug, location: [p.lat, p.long] }));
   }
   canvas:active { cursor: grabbing; }
 
-  /* Pin labels, placed on the globe via CSS anchor positioning (cobe provides the anchors). */
+  /* Clickable hit areas over each marker, placed via CSS anchor positioning
+     (cobe provides the anchors). No labels: the marker dot is the pin. */
   .pin { display: none; }
   @supports (anchor-name: --x) {
     .pin {
@@ -262,19 +264,18 @@ const markers = places.map((p) => ({ id: p.slug, location: [p.lat, p.long] }));
       position: absolute;
       position-anchor: var(--anchor);
       left: anchor(center);
-      bottom: anchor(top);
-      transform: translate(-50%, -6px);
-      padding: 2px 8px;
-      font: 700 11px/1.5 var(--font-mono);
-      color: var(--text-strong);
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid var(--border);
-      border-radius: 999px;
+      top: anchor(center);
+      width: 22px;
+      height: 22px;
+      padding: 0;
+      transform: translate(-50%, -50%);
+      background: transparent;
+      border: 2px solid transparent;
+      border-radius: 50%;
       cursor: pointer;
-      white-space: nowrap;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, border-color 0.2s;
     }
-    .pin:hover, .pin.active { background: var(--accent); border-color: var(--accent); color: #fff; z-index: 2; }
+    .pin:hover, .pin.active { border-color: var(--accent); z-index: 2; }
   }
 
   /* Side panel */
